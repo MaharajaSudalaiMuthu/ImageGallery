@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Image Gallery</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile Header (Visible only on mobile) -->
+    <div class="mobile-header">
+        <div class="mobile-nav">
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h2 class="mobile-title"><i class="fas fa-images"></i> Gallery</h2>
+            <button class="mobile-filter-btn" id="mobileFilterBtn">
+                <i class="fas fa-filter"></i>
+            </button>
+        </div>
+        <div class="mobile-search">
+            <input type="text" placeholder="Search images..." id="searchInput">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+    </div>
+
+    <!-- Desktop/Laptop Layout -->
+    <div class="desktop-container">
+        <header class="desktop-header">
+            <h1><i class="fas fa-camera-retro"></i>  Gallery</h1>
+            <p class="subtitle">Explore beautiful images optimized for all devices</p>
+            
+            <div class="desktop-controls">
+                <div class="search-box">
+                    <input type="text" placeholder="Search images..." id="desktopSearch">
+                    <button class="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Sidebar (Desktop only) -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-filter"></i> Categories</h3>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">
+                            <i class="fas fa-th"></i> All Images
+                        </button>
+                        <button class="filter-btn" data-filter="nature">
+                            <i class="fas fa-mountain"></i> Nature
+                        </button>
+                        <button class="filter-btn" data-filter="city">
+                            <i class="fas fa-city"></i> City Life
+                        </button>
+                        <button class="filter-btn" data-filter="abstract">
+                            <i class="fas fa-palette"></i> Abstract
+                        </button>
+                        <button class="filter-btn" data-filter="technology">
+                            <i class="fas fa-laptop-code"></i> Technology
+                        </button>
+                        <button class="filter-btn" data-filter="travel">
+                            <i class="fas fa-plane"></i> Travel
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-sliders-h"></i> Settings</h3>
+                    <div class="settings">
+                        <div class="setting-item">
+                            <label for="imageQuality">Image Quality</label>
+                            <select id="imageQuality">
+                                <option value="auto">Auto (Based on connection)</option>
+                                <option value="high">High Quality</option>
+                                <option value="medium">Medium</option>
+                                <option value="low">Low (Fast load)</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <label for="itemsPerPage">Images per page</label>
+                            <select id="itemsPerPage">
+                                <option value="12">12 Images</option>
+                                <option value="24">24 Images</option>
+                                <option value="36">36 Images</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Gallery Content -->
+            <section class="gallery-container">
+                <!-- Mobile Filter Menu -->
+                <div class="mobile-filter-menu" id="mobileFilterMenu">
+                    <div class="filter-header">
+                        <h3>Filter Categories</h3>
+                        <button class="close-filter-btn" id="closeFilterBtn">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="mobile-filter-buttons">
+                        <button class="mobile-filter-option active" data-filter="all">
+                            <i class="fas fa-th"></i> All
+                        </button>
+                        <button class="mobile-filter-option" data-filter="nature">
+                            <i class="fas fa-mountain"></i> Nature
+                        </button>
+                        <button class="mobile-filter-option" data-filter="city">
+                            <i class="fas fa-city"></i> City
+                        </button>
+                        <button class="mobile-filter-option" data-filter="abstract">
+                            <i class="fas fa-palette"></i> Abstract
+                        </button>
+                        <button class="mobile-filter-option" data-filter="technology">
+                            <i class="fas fa-laptop-code"></i> Tech
+                        </button>
+                        <button class="mobile-filter-option" data-filter="travel">
+                            <i class="fas fa-plane"></i> Travel
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="gallery" id="imageGallery">
+                    <!-- Images will be loaded here -->
+                </div>
+
+                <!-- Loading Indicator -->
+                <div class="loading" id="loadingIndicator">
+                    <div class="loader"></div>
+                    <p>Loading beautiful images...</p>
+                </div>
+
+                <!-- Image Counter -->
+                <div class="image-counter">
+                    <div class="counter-info">
+                        <span id="currentCount">12</span> of <span id="totalCount">12</span> images
+                    </div>
+                    <div class="counter-controls">
+                        <button class="counter-btn" id="prevPageBtn" disabled>
+                            <i class="fas fa-chevron-left"></i> Previous
+                        </button>
+                        <span class="page-number">Page <span id="currentPage">1</span></span>
+                        <button class="counter-btn" id="nextPageBtn">
+                            Next <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="close-btn" id="closeBtn">
+            <i class="fas fa-times"></i>
+        </button>
+        <button class="lightbox-nav prev-btn" id="prevBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="lightbox-nav next-btn" id="nextBtn">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+            <div class="lightbox-info">
+                <div class="lightbox-text">
+                    <h3 class="lightbox-title" id="lightboxTitle">Image Title</h3>
+                    <span class="lightbox-category" id="lightboxCategory">Category</span>
+                </div>
+                <div class="lightbox-actions">
+                    <button class="action-btn" id="downloadBtn">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="action-btn" id="shareBtn">
+                        <i class="fas fa-share-alt"></i>
+                    </button>
+                    <button class="action-btn" id="favoriteBtn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation -->
+    <nav class="mobile-bottom-nav">
+        <button class="nav-item active">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </button>
+        <button class="nav-item">
+            <i class="fas fa-search"></i>
+            <span>Search</span>
+        </button>
+        <button class="nav-item" id="mobileFilterNavBtn">
+            <i class="fas fa-filter"></i>
+            <span>Filter</span>
+        </button>
+        <button class="nav-item">
+            <i class="far fa-user"></i>
+            <span>Profile</span>
+        </button>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
